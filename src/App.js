@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { parseCSV } from './parseCSV';
 import TotalRevenueChart from './components/TotalRevenueChart';
 import ElectricMetersChart from './components/ElectricMetersChart';
@@ -11,17 +11,17 @@ import RevenueDistributionPieChart from './components/RevenueDistributionPieChar
 const App = () => {
   const [data, setData] = useState([]);
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      parseCSV(file, setData);
-    }
-  };
+  useEffect(() => {
+    fetch('/meters.csv')
+      .then(response => response.text())
+      .then(csvText => {
+        parseCSV(csvText, setData);
+      });
+  }, []);
 
   return (
     <div className="App">
       <h1>Meter Data Visualization</h1>
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
       {data.length > 0 && (
         <>
           <TotalRevenueChart data={data} />
