@@ -1,4 +1,3 @@
-// src/components/RevenueDistributionPieChart.js
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
@@ -18,12 +17,24 @@ const RevenueDistributionPieChart = ({ data }) => {
     ],
   };
 
-  return (
-    <div>
-      <h2>Revenue Distribution</h2>
-      <Pie data={chartData} />
-    </div>
-);
-   };
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white'
+        }
+      }
+    }
+  };
 
-   export default RevenueDistributionPieChart;
+  return (
+    <div className="chart-container">
+      <h2>Revenue Distribution</h2>
+      <Pie data={chartData} options={options} />
+    </div>
+  );
+};
+
+export default RevenueDistributionPieChart;

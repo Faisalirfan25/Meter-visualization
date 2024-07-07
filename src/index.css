@@ -5,13 +5,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #2d2d2d; /* Change background color to greyish black */
+  color: #ffffff; /* Adjust text color for readability */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-/* src/index.css */
+
 .App {
   text-align: center;
 }
@@ -22,4 +24,11 @@ input {
 
 h2 {
   margin-top: 20px;
+  font-size: 1.5em; /* Adjust heading size */
+}
+
+.chart-container {
+  width: 90%;
+  max-width: 600px; /* Set max width for charts */
+  margin: 20px auto; /* Center charts and add margin */
 }
