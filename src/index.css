@@ -28,7 +28,7 @@ h2 {
 }
 
 .chart-container {
-  width: 90%;
-  max-width: 600px; /* Set max width for charts */
+  width: 100%;
+  max-width: 1000px; /* Set max width for charts */
   margin: 20px auto; /* Center charts and add margin */
 }

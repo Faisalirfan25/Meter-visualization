@@ -1,0 +1,39 @@
+/* src/components/BillingPage.css */
+.billing-page {
+    padding: 20px;
+  }
+  
+  .filter-section,
+  .input-section {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #333;
+    color: white;
+  }
+  
+  td a {
+    color: #61dafb;
+  }
+  
