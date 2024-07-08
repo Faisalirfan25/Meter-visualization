@@ -1,37 +1,48 @@
-// server.js or a similar file in your Node.js backend
 const express = require('express');
-const app = express();
-const mysql = require('mysql');
+const mysql = require('mysql2');
+const cors = require('cors');
+const path = require('path');
 
-// Configure your MySQL connection
-const connection = mysql.createConnection({
-  host: 'your-database-host',
-  user: 'your-database-username',
-  password: 'your-database-password',
+const app = express();
+app.use(cors());
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
   database: 'meters'
 });
 
-connection.connect();
+db.connect(err => {
+  if (err) {
+    console.error('Database connection failed:', err);
+  } else {
+    console.log('Connected to the database.');
+  }
+});
 
-app.get('/api/bills', (req, res) => {
-  const { category, consumerId } = req.query;
-  if (!category || !consumerId) {
-    return res.status(400).send('Category and consumer ID are required');
+app.get('/api/data', (req, res) => {
+  const { category, serialNo } = req.query;
+
+  if (!category || !serialNo) {
+    return res.status(400).send('Category and Serial No are required.');
   }
 
   const query = `SELECT * FROM ${category} WHERE serial_no = ?`;
-  connection.query(query, [consumerId], (error, results) => {
-    if (error) {
-      return res.status(500).send(error);
+
+  db.query(query, [serialNo], (err, results) => {
+    if (err) {
+      console.error('Database query failed:', err);
+      return res.status(500).send('Internal Server Error');
     }
     res.json(results);
   });
 });
 
-// Serve static files (PDFs)
-app.use('/bills', express.static('public/bills'));
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -1,38 +1,36 @@
-// src/components/BillingPage.js
 import React, { useState } from 'react';
-import './BillingPage.css';
 
 const BillingPage = () => {
   const [category, setCategory] = useState('');
-  const [consumerId, setConsumerId] = useState('');
+  const [serialNo, setSerialNo] = useState('');
   const [data, setData] = useState([]);
 
-  const handleSearch = async () => {
-    // Fetch data from the server
-    const response = await fetch(`/api/bills?category=${category}&consumerId=${consumerId}`);
-    const result = await response.json();
-    setData(result);
+  const handleSearch = () => {
+    fetch(`/api/data?category=${category}&serialNo=${serialNo}`)
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
   };
 
   return (
     <div className="billing-page">
-      <h2>Billing Page</h2>
-      <div className="filter-section">
-        <label htmlFor="category">Select Category:</label>
-        <select id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+      <h1>Billing Page</h1>
+      <div>
+        <label htmlFor="category">Select Category</label>
+        <select id="category" value={category} onChange={e => setCategory(e.target.value)}>
           <option value="">Select Category</option>
           <option value="Electric">Electric</option>
           <option value="Gas">Gas</option>
           <option value="Water">Water</option>
         </select>
       </div>
-      <div className="input-section">
-        <label htmlFor="consumerId">Enter your consumer ID:</label>
+      <div>
+        <label htmlFor="serialNo">Enter your consumer</label>
         <input
-          id="consumerId"
+          id="serialNo"
           type="text"
-          value={consumerId}
-          onChange={(e) => setConsumerId(e.target.value)}
+          value={serialNo}
+          onChange={e => setSerialNo(e.target.value)}
         />
       </div>
       <button onClick={handleSearch}>Search</button>
@@ -43,13 +41,13 @@ const BillingPage = () => {
               <th>Serial No</th>
               <th>Meter Type</th>
               <th>Current Month Reading</th>
-              <th>Bill (INR)</th>
+              <th>Bill (PKR)</th>
               <th>Download Bill</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
-              <tr key={index}>
+            {data.map(item => (
+              <tr key={item.id}>
                 <td>{item.serial_no}</td>
                 <td>{item.meter_type}</td>
                 <td>{item.current_month_reading}</td>
