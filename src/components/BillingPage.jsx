@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './BillingPage.css'; // Adjusted the path to be relative
+import '../BillingPage.css'; 
 
 const BillingPage = () => {
   const [data, setData] = useState([]);
