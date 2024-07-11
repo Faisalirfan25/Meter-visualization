@@ -7,6 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #2d2d2d; 
   color: #ffffff; 
+  overflow-y: auto; 
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 code {
